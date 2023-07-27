@@ -73,7 +73,7 @@ namespace LazyLoading_Hw
                 if (selectedAuthor == null)
                     return;
 
-                var author = database.Authors.FirstOrDefault(a => (a.FirstName + " " + a.LastName) == selectedAuthor);
+                var author = database.Authors.FirstOrDefault(a => $"{a.FirstName} {a.LastName}" == selectedAuthor);
                 if (author != null)
                 {
                     var authorBooks = author.Books.ToList();
@@ -82,11 +82,29 @@ namespace LazyLoading_Hw
             }
             else if (selectedItem.Content.ToString() == "Themes")
             {
-                // ... diğer kodlar ...
+                var selectedTheme = cmb2.SelectedItem as string;
+                if (selectedTheme == null)
+                    return;
+
+                var theme = database.Themes.FirstOrDefault(t => t.Name == selectedTheme);
+                if (theme != null)
+                {
+                    var themeBooks = theme.Books.ToList();
+                    themeBooks.ForEach(b => book.Add(b));
+                }
             }
             else if (selectedItem.Content.ToString() == "Categories")
             {
-                // ... diğer kodlar ...
+                var selectedCategory = cmb2.SelectedItem as string;
+                if (selectedCategory == null)
+                    return;
+
+                var category = database.Categories.FirstOrDefault(c => c.Name == selectedCategory);
+                if (category != null)
+                {
+                    var categoryBooks = category.Books.ToList();
+                    categoryBooks.ForEach(b => book.Add(b));
+                }
             }
         }
     }
